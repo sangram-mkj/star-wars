@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Flex, Image, Text, Spinner, Heading, List, ListItem, HStack, useToast } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Spinner, Heading, HStack, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 
 const CharacterDetails = () => {
