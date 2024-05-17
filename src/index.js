@@ -4,14 +4,44 @@ import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import {
+  ChakraProvider,
+  Box,
+  Text,
+  Link,
+  VStack,
+  Code,
+  Grid,
+  theme,
+} from '@chakra-ui/react';
+import SWActors from './routes/SWActors/SWActors';
+import CharacterDetails from './routes/CharacterDetails/CharacterDetails';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SWActors />,
+  },
+  {
+    path: "/character/:id",
+    element: <CharacterDetails />
+  }
+]);
+
+
 root.render(
   <StrictMode>
-    <ColorModeScript />
-    <App />
+    <ChakraProvider theme={theme}>
+      <ColorModeScript />
+      <RouterProvider router={router} />
+  </ChakraProvider>
   </StrictMode>
 );
 
