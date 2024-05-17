@@ -9,6 +9,7 @@ const CharacterDetails = () => {
   const [loading, setLoading] = useState(true);
   const [apiList, setApiList] = useState([])
   const [films, setFilms] = useState([]);
+
   const toast = useToast();
 
   const moviePosters = {
@@ -24,12 +25,12 @@ const CharacterDetails = () => {
   };
 
   const fetchFilms = (apiList) => {
-    axios.all(apiList.map((film) => axios.get(film))).then(
-        (data) => {
-          console.log("Data: ", data)
-          setFilms(data);
-        },
-      );
+    axios.all(apiList.map((film) => axios.get(film)))
+    .then((data) => {
+        console.log("Data: ", data)
+        setFilms(data);
+      },
+    );
   }
 
   const fetchCharacter= () => {
@@ -73,57 +74,55 @@ const CharacterDetails = () => {
         </Flex>
       ) : (
         <Box>
-        <Flex justify="center" align="center" direction="column" mb={6}>
-        <Image
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-          alt={character.name}
-          borderRadius="full"
-          boxSize="200px"
-          objectFit="cover"
-          mb={4}
-        />
-        <Heading as="h2" size="xl" textAlign="center">
-          {character.name}
-        </Heading>
-      </Flex>
-      <Box mb={8}>
-        <Text fontSize="lg"><strong>Height:</strong> {character.height}</Text>
-        <Text fontSize="lg"><strong>Mass:</strong> {character.mass}</Text>
-        <Text fontSize="lg"><strong>Hair Color:</strong> {character.hair_color}</Text>
-        <Text fontSize="lg"><strong>Skin Color:</strong> {character.skin_color}</Text>
-        <Text fontSize="lg"><strong>Eye Color:</strong> {character.eye_color}</Text>
-        <Text fontSize="lg"><strong>Birth Year:</strong> {character.birth_year}</Text>
-        <Text fontSize="lg"><strong>Gender:</strong> {character.gender}</Text>
-      </Box>
-      <Heading as="h3" size="lg" mb={4}>Films</Heading>
-
-      <Box overflowX="auto">
-        <HStack spacing={4} py={4} minWidth="1000px">
-          {films.map((film, index) => (
-            <Box
-              key={index}
-              w="200px"
-              p={4}
-              borderWidth="1px"
-              borderRadius="lg"
-              boxShadow="md"
-              textAlign="center"
-            >
-              <Image
-                src={moviePosters[film.data.title]}
-                alt={film.data.title}
-                boxSize="150px"
-                objectFit="cover"
-                borderRadius="md"
-                mb={4}
-              />
-              <Text fontWeight="bold" fontSize="lg">{film.data.title}</Text>
-              <Text fontSize="md">Release Date: {film.data.releaseDate}</Text>
-            </Box>
-          ))}
-        </HStack>
-      </Box>
-
+          <Flex justify="center" align="center" direction="column" mb={6}>
+          <Image
+            src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+            alt={character.name}
+            borderRadius="full"
+            boxSize="200px"
+            objectFit="cover"
+            mb={4}
+          />
+          <Heading as="h2" size="xl" textAlign="center">
+            {character.name}
+          </Heading>
+          </Flex>
+          <Box mb={8}>
+            <Text fontSize="lg"><strong>Height:</strong> {character.height}</Text>
+            <Text fontSize="lg"><strong>Mass:</strong> {character.mass}</Text>
+            <Text fontSize="lg"><strong>Hair Color:</strong> {character.hair_color}</Text>
+            <Text fontSize="lg"><strong>Skin Color:</strong> {character.skin_color}</Text>
+            <Text fontSize="lg"><strong>Eye Color:</strong> {character.eye_color}</Text>
+            <Text fontSize="lg"><strong>Birth Year:</strong> {character.birth_year}</Text>
+            <Text fontSize="lg"><strong>Gender:</strong> {character.gender}</Text>
+          </Box>
+          <Heading as="h3" size="lg" mb={4}>Films</Heading>
+          <Box overflowX="auto">
+            <HStack spacing={4} py={4} minWidth="1000px">
+              {films.map((film, index) => (
+                <Box
+                  key={index}
+                  w="200px"
+                  p={4}
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  boxShadow="md"
+                  textAlign="center"
+                >
+                  <Image
+                      src={moviePosters[film.data.title]}
+                      alt={film.data.title}
+                      boxSize="150px"
+                      objectFit="cover"
+                      borderRadius="md"
+                      mb={4}
+                  />
+                  <Text fontWeight="bold" fontSize="lg">{film.data.title}</Text>
+                  <Text fontSize="md">Release Date: {film.data.releaseDate}</Text>
+                </Box>
+              ))}
+            </HStack>
+          </Box>
         </Box>
       )}
     </Box>

@@ -12,7 +12,6 @@ const SWActors = () => {
 
   const toast = useToast();
 
-
   useEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setFavorites(savedFavorites);
@@ -26,12 +25,11 @@ const SWActors = () => {
         setLoading(true);
         axios.get(`https://swapi.dev/api/people/?page=${currentPage}`)
         .then((res) => {
-            console.log("Actor list: ", res);
             setActors(res.data.results);
             setLoading(false);
+            console.log("Dataaaaa: ", res.data.results)
         })
         .catch((err) => {
-            console.log("Error in fetching details data: ", err);
             toast({
               title: "Can't fetch data",
               description: `Are you connected to the internet?`,
@@ -60,37 +58,6 @@ const SWActors = () => {
   };
 
   return (
-    // <Box p={8}>
-    //   <Text fontSize="2xl" mb={4}>Star Wars Actors</Text>
-    //   {loading ? (
-    //     <Flex justify="center" align="center">
-    //       <Spinner size="xl" />
-    //     </Flex>
-    //   ) : (
-    //     <Flex flexWrap="wrap" justify="space-between">
-    //       {actors.map(actor => (
-    //         <Box key={actor.name} w="300px" mb={4} p={4} borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md">
-    //             <Button onClick={() => toggleFavorite(actor.name)}>
-    //                 {favorites.includes(actor.name) ? 'Unfavorite' : 'Favorite'}
-    //             </Button>
-    //           <Link to={`/character/${actor.url.match(/\d+/)}`}>
-    //             <Image src={`https://starwars-visualguide.com/assets/img/characters/${actor.url.match(/\d+/)}.jpg`} alt={actor.name} mb={2} />
-    //             <Text fontWeight="bold">{actor.name}</Text>
-    //           </Link>
-    //           {/* Add more details if needed */}
-    //         </Box>
-    //       ))}
-    //     </Flex>
-    //   )}
-    //    <Flex justifyContent="space-between">
-    //     <Button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
-    //       Previous
-    //     </Button>
-    //     <Button onClick={() => setCurrentPage((prev) => prev + 1)}>Next</Button>
-    //   </Flex>
-    // </Box>
-
-
     <Box p={8}>
     <Heading as="h1" size="xl" mb={6} textAlign="center">
       Star Wars Characters
@@ -110,7 +77,7 @@ const SWActors = () => {
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
-            boxShadow="lg"x
+            boxShadow="lg"
             textAlign="center"
             position="relative"
             bg="white"
