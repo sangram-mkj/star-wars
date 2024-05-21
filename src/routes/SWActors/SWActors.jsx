@@ -6,18 +6,14 @@ import {ReactComponent as HelmetIcon} from '../../icons/helmet.svg'
 import axios from 'axios';
 
 const SWActors = () => {
+
   const [actors, setActors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
 
   const toast = useToast();
   const { isOpen, onToggle } = useDisclosure()
-
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setFavorites(savedFavorites);
-  }, []);
 
   useEffect(() => {
     fetchActors()
@@ -30,9 +26,9 @@ const SWActors = () => {
         setActors(res.data.results);
         setLoading(false);
         onToggle()
-        console.log("Dataaaaa: ", res.data.results)
     })
     .catch((err) => {
+      console.log("Error while fetching character list: ", err)
         toast({
           title: "Can't fetch data",
           description: `Are you connected to the internet?`,
@@ -44,10 +40,10 @@ const SWActors = () => {
   }
 
   const toggleFavorite = (character) => {
-    const updatedFavorites = favorites.includes(character)
-      ? favorites.filter((fav) => fav !== character)
-      : [...favorites, character];
-      
+    const updatedFavorites = favorites.includes(character) ? favorites.filter((fav) => fav !== character) : [...favorites, character];
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+
     toast({
         title: updatedFavorites.includes(character) ? "Added to favorites" : "Removed from favorites",
         description: `${character} has been ${updatedFavorites.includes(character) ? "added to" : "removed from"} your favorites.`,
@@ -55,9 +51,6 @@ const SWActors = () => {
         duration: 3000,
         isClosable: true,
     });
-
-    setFavorites(updatedFavorites);
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
   return (
@@ -148,6 +141,7 @@ const SWActors = () => {
       onClick={() => setCurrentPage((prev) => prev + 1)}
       colorScheme="teal"
       variant="solid"
+      size="md"
     >
       Next
     </Button>

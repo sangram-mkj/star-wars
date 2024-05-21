@@ -32,10 +32,9 @@ const CharacterDetails = () => {
     .then((data) => {
         setFilms(data);
         setMovieLoading(false)
-      },
-    )
+    })
     .catch((err) => {
-      // console.log("Error while fetching movie list: ", err);
+      console.log("Error while fetching movie list: ", err);
       toast({
         title: "Can't fetch Movie list",
         description: `Please refresh the page`,
@@ -46,7 +45,7 @@ const CharacterDetails = () => {
     })
   }
 
-  const fetchCharacter= () => {
+  const fetchCharacter = () => {
     setLoading(true)
     axios.get(`https://swapi.dev/api/people/${id}/`)
     .then((res) => {
@@ -127,7 +126,7 @@ const CharacterDetails = () => {
               </VStack>
             </Box>
             <Divider my={6} borderColor="teal.300" />
-            <Heading as="h3" size="lg" mb={4} color="teal.300">Films</Heading>
+            <Heading as="h3" size="lg" mb={4} color="teal.300">Films Appreared in:</Heading>
             <Box overflowX="auto">
               {movieLoading ? (
                 <Flex justify="center" align="center" height="50vh">
