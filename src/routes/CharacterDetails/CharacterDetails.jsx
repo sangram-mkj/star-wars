@@ -149,6 +149,8 @@ const CharacterDetails = () => {
                     display="flex"
                     flexDirection="column"
                     justifyContent="space-between"
+                    transition="transform 0.2s"
+                    _hover={{ transform: 'scale(1.05)' }}
                   >
                     <Tooltip label={film.data.title}>
                     <Image
