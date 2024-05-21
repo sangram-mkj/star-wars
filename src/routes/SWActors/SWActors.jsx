@@ -101,6 +101,7 @@ const SWActors = () => {
               />
             </Tooltip>
             <Link to={`/character/${actor.url.match(/\d+/)[0]}`}>
+              {/* <Tooltip label="Click to get more details"> */}
               <Image
                 src={`https://starwars-visualguide.com/assets/img/characters/${actor.url.match(/\d+/)[0]}.jpg`}
                 alt={actor.name}
@@ -110,6 +111,7 @@ const SWActors = () => {
                 objectFit="cover"
                 mx="auto"
               />
+              {/* </Tooltip> */}
               <Text fontWeight="bold" fontSize="lg" color="gray.700">
                 {actor.name}
               </Text>
